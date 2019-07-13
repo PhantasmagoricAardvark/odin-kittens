@@ -9,7 +9,19 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  
+  <% flash.each do |f| %>
+    <%= f %>
+  <% end %>
   <body>
     <%= yield %>
   </body>
+  <% if params[:action] == "show" && params[:controller] == "kittens" %>
+    <%= link_to "Edit kitten", edit_kitten_url(@kitten) %>
+    <%= link_to "Delete kitten", kitten_path(@kitten), method: :delete %>
+  <% elsif params[:action] == "edit" && params[:controller] = "kittens" %>
+    <%= link_to "Delete kitten", kitten_path(@kitten), method: :delete %>
+  <% end %>
+  <%= link_to "New kitten", new_kitten_path %>
+  <%= link_to "Kittens", kittens_path %>
 </html>
